@@ -1,0 +1,13 @@
+-r requirements.txt
+
+black==22.3.0
+django-extensions==3.2.1
+django-coverage-plugin==3.0.0
+factory-boy==2.4.1
+flake8==4.0.1
+isort==5.10.1
+pylint==2.12.2
+pytest-cov==4.0.0
+pytest-django==4.5.2
+pytest==7.2.1
+tox==4.3.5
