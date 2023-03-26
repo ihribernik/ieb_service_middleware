@@ -12,3 +12,4 @@ RUN pip install -r requirements.txt
 COPY .env.example /code/.env
 RUN cat /code/.env
 ADD . /code/
+CMD [ "make", "run" ]

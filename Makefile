@@ -21,10 +21,10 @@ clean:
 	rm -rf .pytest_cache
 
 lint:
-	flake8 market ieb_service_http tests
+	flake8 market ieb_service_middleware tests
 
 format:
-	black market ieb_service_http tests
+	black market ieb_service_middleware tests
 
 test:
 	tox
@@ -39,16 +39,16 @@ migrate:
 	python manage.py migrate
 
 run:
-	python manage.py runserver
+	python manage.py runserver 8001
 
 run-dev:
-	 python manage.py runserver --settings=ieb_service_http.settings.development
+	 python manage.py runserver --settings=ieb_service_middleware.settings.development
 
 run-test:
-	 python manage.py runserver --settings=ieb_service_http.settings.test
+	 python manage.py runserver --settings=ieb_service_middleware.settings.test
 
 run-prod:
-	 python manage.py runserver --settings=ieb_service_http.settings.production
+	 python manage.py runserver --settings=ieb_service_middleware.settings.production
 
 run-docker:
 	docker-compose up -d

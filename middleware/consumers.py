@@ -1,6 +1,8 @@
 import json
 
 from channels.generic.websocket import WebsocketConsumer
+import requests
+from decouple import config
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -12,9 +14,14 @@ class ChatConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        match text_data_json['type']:
+        match text_data_json["type"]:
             case "get_info":
-                self.send(text_data=json.dumps({"message": "mucha info junta"}))
+                user = config("HTTP_API_USER")
+                password = config("HTTP_API_PASSWORD")
+                auth_tuple = (user, password)
+                url = config("HTTP_API_URL")
+                result = requests.get(url, auth=auth_tuple)
+                self.send(text_data=json.dumps({"message": result.json()}))
 
             case _:
                 self.send(
