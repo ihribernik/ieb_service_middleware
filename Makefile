@@ -21,10 +21,10 @@ clean:
 	rm -rf .pytest_cache
 
 lint:
-	flake8 market ieb_service_middleware tests
+	flake8 middleware ieb_service_middleware tests
 
 format:
-	black market ieb_service_middleware tests
+	black middleware ieb_service_middleware tests
 
 test:
 	tox
@@ -42,13 +42,10 @@ run:
 	python manage.py runserver 8001
 
 run-dev:
-	 python manage.py runserver --settings=ieb_service_middleware.settings.development
+	 python manage.py runserver --settings=ieb_service_middleware.settings.development 8001
 
 run-test:
-	 python manage.py runserver --settings=ieb_service_middleware.settings.test
+	 python manage.py runserver --settings=ieb_service_middleware.settings.test 8001
 
 run-prod:
-	 python manage.py runserver --settings=ieb_service_middleware.settings.production
-
-run-docker:
-	docker-compose up -d
+	 python manage.py runserver --settings=ieb_service_middleware.settings.production 8001
