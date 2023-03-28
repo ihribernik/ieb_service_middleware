@@ -25,11 +25,28 @@ class ProductConsumer(AsyncWebsocketConsumer):
                     self.start = False
 
                 await self._main_loop()
+
+            case "get_info_all":
+                auth_tuple = (self.user, self.password)
+                result = requests.get(self.url, auth=auth_tuple)
+                await self.send(
+                    text_data=json.dumps(
+                        {
+                            "message": result.json(),
+                            "status": "start",
+                            "type": "get_info_all",
+                        }
+                    )
+                )
             case _:
                 self.start = False
                 await self.send(
                     text_data=json.dumps(
-                        {"message": "estas preguntando cualquier gilada "}
+                        {
+                            "message": "estas preguntando cualquier gilada",
+                            "status": "stop",
+                            "type": "error",
+                        }
                     )
                 )
 
@@ -43,9 +60,23 @@ class ProductConsumer(AsyncWebsocketConsumer):
                 result = requests.get(self.url, auth=auth_tuple)
 
                 await self.send(
-                    text_data=json.dumps({"message": result.json(), "status": "start"})
+                    text_data=json.dumps(
+                        {
+                            "message": result.json(),
+                            "status": "start",
+                            "type": "get_info",
+                        }
+                    )
                 )
 
             else:
-                await self.send(text_data=json.dumps({"message": [], "status": "stop"}))
+                await self.send(
+                    text_data=json.dumps(
+                        {
+                            "message": "no estas preguntando nada",
+                            "status": "stop",
+                            "type": "get_info",
+                        }
+                    )
+                )
             await asyncio.sleep(10)
