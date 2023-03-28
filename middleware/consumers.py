@@ -58,6 +58,7 @@ class ProductConsumer(AsyncWebsocketConsumer):
                     self.url = f"{self.url}/{self.current_id}"
 
                 result = requests.get(self.url, auth=auth_tuple)
+                self.current_id = ""
 
                 await self.send(
                     text_data=json.dumps(
